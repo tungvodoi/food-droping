@@ -11,10 +11,12 @@ body {
 #root {
   width: 100vw;
   height: 100vh;
-  align-items: center;
+  /* align-items: center; */
   background-color: #222222;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
+  text-align: center;
+  overflow: hidden;
 }
 
 #main {

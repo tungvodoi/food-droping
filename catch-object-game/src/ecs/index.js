@@ -31,6 +31,10 @@ export default () => {
     components[type][id] = data;
   };
 
+  World.setComponentValue = (id, type, data) => {
+    components[type][id] = data;
+  };
+
   World.setSystem = (system, active = true) => {
     if (active) {
       activeSystems.push(system);
