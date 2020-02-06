@@ -5,7 +5,7 @@ export const createContainer = (world, x, y, tx, ty) => {
   world.addComponent(id, "position", new Vector2(x, y));
   world.addComponent(id, "target", new Vector2(tx, ty));
   world.addComponent(id, "speed", 200);
-  world.addComponent(id, "width", 50);
+  world.addComponent(id, "width", 100);
   world.addComponent(id, "height", 50);
   world.addComponent(id, "container", true);
   return id;

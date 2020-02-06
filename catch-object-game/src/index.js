@@ -12,11 +12,9 @@ world.context = context;
 console.log(canvas.width, canvas.height);
 const imageBackground = new Image();
 imageBackground.src = "./yellow.jpg";
-const imageContainer = new Image();
-imageContainer.src = "./ellipse2.png";
 
 createObject(world);
-renderSystem(world, imageContainer);
+renderSystem(world);
 
 const update = delta => {
   context.clearRect(0, 0, canvas.width, canvas.height);

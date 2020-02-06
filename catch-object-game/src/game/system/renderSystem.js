@@ -1,6 +1,6 @@
 const state = ["container"];
 
-const renderContainer = (world, image) => {
+const renderContainer = world => {
   let context = world.context;
   world.setSystem(wolrd => {
     const ids = world.getEntities(state);
@@ -8,7 +8,9 @@ const renderContainer = (world, image) => {
       const position = world.getComponent(id, "position");
       const width = world.getComponent(id, "width");
       const height = world.getComponent(id, "height");
-      context.drawImage(image, position.x, position.y, width, height);
+      context.fillStyle = "red";
+      context.fillRect(position.x, position.y, width, height);
+      // context.drawImage(image, position.x, position.y, width, height);
     }
   });
 };
