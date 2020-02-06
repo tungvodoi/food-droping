@@ -1,5 +1,4 @@
-const state = ["container"];
-
+const state = "container";
 const renderContainer = (world, image) => {
   let context = world.context;
   world.setSystem(wolrd => {
