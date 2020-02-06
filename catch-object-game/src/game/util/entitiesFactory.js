@@ -7,6 +7,7 @@ export const createContainer = (world, x, y, tx, ty) => {
   world.addComponent(id, "speed", 200);
   world.addComponent(id, "width", 10);
   world.addComponent(id, "height", 5);
+  world.addComponent(id, "containter", true);
 };
 
 export const createLoot = (world, x, y, tx, ty) => {
