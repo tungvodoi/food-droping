@@ -1,5 +1,5 @@
 import Vector2 from "gdxjs/lib/vector2";
-const state = ["container"];
+const state = ["container", "position", "target", "speed"];
 
 const containerPhysicalSystem = world => {
   const tmp = new Vector2();
