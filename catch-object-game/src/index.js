@@ -14,6 +14,7 @@ import summationSystem from "./game/system/summationSystem";
 import deleteLoot from "./game/system/deleteLoot";
 const canvas = document.getElementById("main");
 const context = canvas.getContext("2d");
+// let scree = screen.height;
 
 const world = createWorld();
 
@@ -42,6 +43,12 @@ summationSystem(world);
 deleteLoot(world);
 
 const update = delta => {
+  // var b = screen.availHeight;
+  // console.log(b);
+  var widthScreen = window.innerWidth;
+  if (widthScreen > 500) {
+    world.canvas.width = 1000;
+  }
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.drawImage(imageBackground, 0, 0, canvas.width, canvas.height);
   world.setDelta(delta);

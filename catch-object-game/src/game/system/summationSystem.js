@@ -16,7 +16,7 @@ const takeContainerInfor = world => {
 const summationSystem = world => {
   const ci = takeContainerInfor(world);
   world.setSystem(world => {
-    console.log(ci[4]);
+    // console.log(ci[4]);
     const ids = world.getEntities(state2);
     for (let id of ids) {
       const p = world.getComponent(id, "position");
@@ -30,7 +30,7 @@ const summationSystem = world => {
         ci[3] += 100;
         world.setComponentValue(0, "score", ci[3]);
         ci[4] -= 1;
-        console.log(ci[4]);
+        // console.log(ci[4]);
         world.setComponentValue(0, "phase", ci[4]);
       }
     }

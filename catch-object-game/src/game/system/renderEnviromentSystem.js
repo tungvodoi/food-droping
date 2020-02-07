@@ -3,6 +3,8 @@ const state = ["score", "time", "container"];
 const renderEnviroment = world => {
   const w = world.canvas.width;
   const h = world.canvas.height;
+  console.log(w + "w");
+  console.log(h + "h");
   const context = world.context;
   world.setSystem(world => {
     const ids = world.getEntities(state);
