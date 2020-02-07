@@ -24,15 +24,38 @@ export const createLoot = (world, x, y) => {
   world.addComponent(id, "color", colors[Math.floor(Math.random() * 4) + 0]);
   return id;
 };
+// let i = 0;
+const arr = [];
 
 export const createRecipe = (world, x, y) => {
+  // let dcm = colors[Math.floor(Math.random() * 4) + 0];
+  let b;
+
+  b = colors[Math.floor(Math.random() * 4) + 0];
+  if (arr.length === 3) {
+    arr.length = 0;
+  }
+  if (arr.length <= 0) {
+    arr.push(b);
+  }
+  for (const item in arr) {
+    if (item === b) {
+      b = colors[Math.floor(Math.random() * 4) + 0];
+    } else {
+      arr.push(b);
+    }
+  }
+
+  console.log(b);
+
   const id = world.createEntity();
   world.addComponent(id, "recipe", {
     position: new Vector2(x, y),
     target: new Vector2(0, 0),
     speed: 100,
     radius: 30,
-    color: colors[Math.floor(Math.random() * 4) + 0]
+    // color: colors[Math.floor(Math.random() * 4) + 0]
+    color: b
   });
   return id;
 };
