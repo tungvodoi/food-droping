@@ -9,6 +9,8 @@ export const createContainer = (world, x, y, tx, ty) => {
   world.addComponent(id, "width", 100);
   world.addComponent(id, "height", 50);
   world.addComponent(id, "container", true);
+  world.addComponent(id, "score", 0);
+  world.addComponent(id, "time", 60);
   return id;
 };
 
@@ -16,9 +18,20 @@ export const createLoot = (world, x, y) => {
   const id = world.createEntity();
   world.addComponent(id, "position", new Vector2(x, y));
   world.addComponent(id, "speed", 200);
-  world.addComponent(id, "radius", 10);
+  world.addComponent(id, "radius", 30);
   world.addComponent(id, "loot", true);
-  world.addComponent(id, "dead", false);
   world.addComponent(id, "color", colors[Math.floor(Math.random() * 4) + 0]);
+  return id;
+};
+
+export const createRecipe = (world, x, y) => {
+  const id = world.createEntity();
+  world.addComponent(id, "recipe", {
+    position: new Vector2(x, y),
+    target: new Vector2(0, 0),
+    speed: 100,
+    radius: 30,
+    color: colors[Math.floor(Math.random() * 4) + 0]
+  });
   return id;
 };
