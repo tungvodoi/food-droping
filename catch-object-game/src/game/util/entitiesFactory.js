@@ -10,6 +10,7 @@ export const createContainer = (world, x, y, tx, ty) => {
   world.addComponent(id, "height", 50);
   world.addComponent(id, "container", true);
   world.addComponent(id, "score", 0);
+  world.addComponent(id, "phase", 0);
   world.addComponent(id, "time", 60);
   return id;
 };

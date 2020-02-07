@@ -1,7 +1,7 @@
 import { createContainer } from "../util/entitiesFactory";
 import { createLoot } from "../util/entitiesFactory";
 import { createRecipe } from "../util/entitiesFactory";
-const state1 = ["target", "container"];
+const state1 = ["target", "container", "phase"];
 export const createContainers = world => {
   const canvas = world.canvas;
   let x = 0;
@@ -40,31 +40,36 @@ export const createLoots = world => {
 };
 
 export const createRecipes = world => {
-  let count = 0;
+  // let count = 0;
   const cwidth = world.canvas.width;
   const cheight = world.canvas.height;
   const marginLR = (cwidth / 2 - 30 * 3) / 4; // 30 la radius cua recipe
   const marginTB = ((cheight * 7) / 24 - cheight / 6 - 30) / 2;
 
-  const finish = true;
-
   world.setSystem(world => {
-    if (finish === true) {
-      createRecipe(
-        world,
-        (cwidth * 3) / 4 - 30 - marginLR,
-        cheight / 6 + marginTB
-      );
-      createRecipe(
-        world,
-        (cwidth * 3) / 4 - 30 - marginLR * 2 - 30,
-        cheight / 6 + marginTB
-      );
-      createRecipe(
-        world,
-        (cwidth * 3) / 4 - 30 - marginLR * 3 - 30 * 2,
-        cheight / 6 + marginTB
-      );
+    const ids = world.getEntities(state1);
+    // console.log(ids);
+    for (let id of ids) {
+      let phase = world.getComponent(id, "phase");
+      // console.log(phase);
+      if (phase === 0) {
+        world.setComponentValue(0, "phase", 3);
+        createRecipe(
+          world,
+          (cwidth * 3) / 4 - 30 - marginLR,
+          cheight / 6 + marginTB
+        );
+        createRecipe(
+          world,
+          (cwidth * 3) / 4 - 30 - marginLR * 2 - 30,
+          cheight / 6 + marginTB
+        );
+        createRecipe(
+          world,
+          (cwidth * 3) / 4 - 30 - marginLR * 3 - 30 * 2,
+          cheight / 6 + marginTB
+        );
+      }
     }
   });
 };
