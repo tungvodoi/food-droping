@@ -32,8 +32,8 @@ renderContainer(world);
 renderRecipe(world);
 /////////////////////////////
 createContainers(world);
-createRecipes(world);
 createLoots(world);
+createRecipes(world);
 ///////////////////////////////
 summationSystem(world);
 containerPhysicalSystem(world);

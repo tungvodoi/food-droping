@@ -1,4 +1,4 @@
-const state = ["recipe"];
+const state = ["recipe", "position", "radius", "color"];
 
 const renderRecipe = world => {
   // const cwidth = world.canvas.width;
@@ -7,15 +7,12 @@ const renderRecipe = world => {
   world.setSystem(world => {
     const ids = world.getEntities(state);
     for (let id of ids) {
-      const recipe = world.getComponent(id, "recipe");
+      const position = world.getComponent(id, "position");
+      const radius = world.getComponent(id, "radius");
+      const color = world.getComponent(id, "color");
 
-      context.fillStyle = recipe.color;
-      context.fillRect(
-        recipe.position.x,
-        recipe.position.y,
-        recipe.radius,
-        recipe.radius
-      );
+      context.fillStyle = color;
+      context.fillRect(position.x, position.y, radius, radius);
     }
   });
 };

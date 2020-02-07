@@ -27,12 +27,13 @@ export const createLoot = (world, x, y) => {
 
 export const createRecipe = (world, x, y) => {
   const id = world.createEntity();
-  world.addComponent(id, "recipe", {
-    position: new Vector2(x, y),
-    target: new Vector2(0, 0),
-    speed: 100,
-    radius: 30,
-    color: colors[Math.floor(Math.random() * 4) + 0]
-  });
+  world.addComponent(id, "recipe", true);
+  world.addComponent(id, "position", new Vector2(x, y));
+  world.addComponent(id, "target", new Vector2(0, 0));
+  world.addComponent(id, "speed", 100);
+  world.addComponent(id, "radius", 30);
+  world.addComponent(id, "color", colors[Math.floor(Math.random() * 4) + 0]);
+  world.addComponent(id, "selected", false);
+
   return id;
 };
