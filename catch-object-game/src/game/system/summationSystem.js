@@ -14,9 +14,8 @@ const takeContainerInfor = world => {
 };
 
 const summationSystem = world => {
-  const ci = takeContainerInfor(world);
   world.setSystem(world => {
-    console.log(ci[4]);
+    const ci = takeContainerInfor(world);
     const ids = world.getEntities(state2);
     for (let id of ids) {
       const p = world.getComponent(id, "position");
@@ -24,14 +23,19 @@ const summationSystem = world => {
       if (
         p.x + radius / 2 >= ci[0].x - ci[1] / 2 &&
         p.x - radius / 2 <= ci[0].x + ci[1] / 2 &&
-        p.y + radius / 2 >= ci[0].y - ci[2] / 2
+        p.y + radius / 2 >= ci[0].y - ci[2] / 2 &&
+        p.y - radius / 2 <= ci[0].y + ci[2] / 2
       ) {
         world.destroyEntity(id);
         ci[3] += 100;
         world.setComponentValue(0, "score", ci[3]);
         ci[4] -= 1;
-        console.log(ci[4]);
         world.setComponentValue(0, "phase", ci[4]);
+      }
+      if (p.y >= 600) {
+        ci[3] -= 100;
+        world.setComponentValue(0, "score", ci[3]);
+        world.destroyEntity(id);
       }
     }
   });

@@ -48,12 +48,11 @@ export const createRecipes = world => {
 
   world.setSystem(world => {
     const ids = world.getEntities(state1);
-    // console.log(ids);
     for (let id of ids) {
       let phase = world.getComponent(id, "phase");
-      // console.log(phase);
       if (phase === 0) {
         world.setComponentValue(0, "phase", 3);
+
         createRecipe(
           world,
           (cwidth * 3) / 4 - 30 - marginLR,

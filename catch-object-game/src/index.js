@@ -32,12 +32,12 @@ renderContainer(world);
 renderRecipe(world);
 /////////////////////////////
 createContainers(world);
-createLoots(world);
 createRecipes(world);
+createLoots(world);
 ///////////////////////////////
+summationSystem(world);
 containerPhysicalSystem(world);
 loopPhysicalSystem(world);
-summationSystem(world);
 
 deleteLoot(world);
 
