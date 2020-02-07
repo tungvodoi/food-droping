@@ -26,10 +26,10 @@ const imageBackground = new Image();
 imageBackground.src = "./yellow.jpg";
 
 // render sau dc ve len tren
-renderRecipe(world);
 renderEnviroment(world);
 renderLoot(world);
 renderContainer(world);
+renderRecipe(world);
 /////////////////////////////
 createContainers(world);
 createLoots(world);

@@ -40,5 +40,31 @@ export const createLoots = world => {
 };
 
 export const createRecipes = world => {
-  createRecipe(world);
+  let count = 0;
+  const cwidth = world.canvas.width;
+  const cheight = world.canvas.height;
+  const marginLR = (cwidth / 2 - 30 * 3) / 4; // 30 la radius cua recipe
+  const marginTB = ((cheight * 7) / 24 - cheight / 6 - 30) / 2;
+
+  const finish = true;
+
+  world.setSystem(world => {
+    if (finish === true) {
+      createRecipe(
+        world,
+        (cwidth * 3) / 4 - 30 - marginLR,
+        cheight / 6 + marginTB
+      );
+      createRecipe(
+        world,
+        (cwidth * 3) / 4 - 30 - marginLR * 2 - 30,
+        cheight / 6 + marginTB
+      );
+      createRecipe(
+        world,
+        (cwidth * 3) / 4 - 30 - marginLR * 3 - 30 * 2,
+        cheight / 6 + marginTB
+      );
+    }
+  });
 };

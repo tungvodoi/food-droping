@@ -24,18 +24,13 @@ export const createLoot = (world, x, y) => {
   return id;
 };
 
-export const createRecipe = world => {
+export const createRecipe = (world, x, y) => {
   const id = world.createEntity();
-  world.addComponent(id, "banner", {
-    position: new Vector2(0, 0),
-    width: 0,
-    height: 0
-  });
   world.addComponent(id, "recipe", {
-    position: new Vector2(0, 0),
+    position: new Vector2(x, y),
     target: new Vector2(0, 0),
     speed: 100,
-    radius: 10,
+    radius: 30,
     color: colors[Math.floor(Math.random() * 4) + 0]
   });
   return id;

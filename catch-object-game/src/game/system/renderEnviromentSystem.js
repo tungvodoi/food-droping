@@ -14,6 +14,10 @@ const renderEnviroment = world => {
       context.fillStyle = "red";
       context.fillRect(0, 0, w, h / 6);
 
+      //draw order board
+      context.fillStyle = "green";
+      context.fillRect(w / 4, h / 6, w / 2, h / 8);
+
       // draw brand image
       context.fillStyle = "yellow";
       context.fillRect(w / 3, h / 18, w / 3, h / 14);
@@ -24,7 +28,7 @@ const renderEnviroment = world => {
       context.font = "25px Arial";
       context.fillStyle = "black";
       context.textAlign = "center";
-      context.fillText(`${score}`, w / 24 + w / 8, h / 18 + h / 14 - 5);
+      context.fillText(`${score}`, w / 24 + w / 8, h / 18 + h / 14 - 5); // 5 la vi tri tuong doi
 
       //draw timeBoard
       context.fillStyle = "yellow";
