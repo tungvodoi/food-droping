@@ -1,8 +1,8 @@
 const state = ["recipe"];
 
 const renderRecipe = world => {
-  const cwidth = world.canvas.width;
-  const cheight = world.canvas.height;
+  // const cwidth = world.canvas.width;
+  // const cheight = world.canvas.height;
   const context = world.context;
   world.setSystem(world => {
     const ids = world.getEntities(state);
