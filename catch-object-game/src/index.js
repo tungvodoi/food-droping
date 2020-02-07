@@ -1,27 +1,33 @@
 import createWorld from "./ecs";
 import "./index.css";
-import createPhysicsLootSystem from "./game/system/physicsLootSystem";
-import createObject from "./game/system/createObjectSystem";
-import { renderSystem, renderLoots } from "./game/system/renderSystem";
-import createDropLoot from "./game/system/renderLoot";
-import lootExpire from "./game/system/lootExpireSystem";
+import { createContainers } from "./game/system/createObjectSystem";
+import { createLoots } from "./game/system/createObjectSystem";
+import { renderContainer } from "./game/system/renderSystem";
+import { renderLoot } from "./game/system/renderSystem";
+import containerPhysicalSystem from "./game/system/containerPhysicalSystem";
+import loopPhysicalSystem from "./game/system/loopPhysicalSystem";
+import summationSystem from "./game/system/summationSystem";
+// import clearObject from "./game/system/deleteLoot";
 const canvas = document.getElementById("main");
 const context = canvas.getContext("2d");
 
 const world = createWorld();
 world.canvas = canvas;
 world.context = context;
-
 const imageBackground = new Image();
 imageBackground.src = "./yellow.jpg";
-createPhysicsLootSystem(world);
-createDropLoot(world);
-renderLoots(world);
-createObject(world);
-renderSystem(world);
-// lootExpire(world);
+
+createContainers(world);
+createLoots(world);
+renderContainer(world);
+renderLoot(world);
+containerPhysicalSystem(world);
+loopPhysicalSystem(world);
+summationSystem(world);
+// clearObject(world);
+
 const update = delta => {
-  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.clearRect(0, 0, 300, 600);
   context.drawImage(imageBackground, 0, 0, canvas.width, canvas.height);
   world.setDelta(delta);
   world.process();
