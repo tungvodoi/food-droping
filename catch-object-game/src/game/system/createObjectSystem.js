@@ -11,12 +11,18 @@ export const createContainers = world => {
     x = e.clientX - rect.left;
     y = e.clientY - rect.top;
   });
-  createContainer(world, canvas.width / 2, (canvas.height * 5) / 6, 0, x, y);
+  createContainer(
+    world,
+    canvas.width / 2,
+    (canvas.height * 5) / 6 + canvas.height / 50,
+    x,
+    y
+  );
   world.setSystem(world => {
     const ids = world.getEntities(state1);
     for (let id of ids) {
       const t = world.getComponent(id, "target");
-      t.set(x, (canvas.height * 5) / 6);
+      t.set(x, (canvas.height * 5) / 6 + canvas.height / 50);
     }
   });
 };
@@ -43,8 +49,7 @@ export const createRecipes = world => {
   // let count = 0;
   const cwidth = world.canvas.width;
   const cheight = world.canvas.height;
-  const marginLR = (cwidth / 2 - 30 * 3) / 4; // 30 la radius cua recipe
-  const marginTB = ((cheight * 7) / 24 - cheight / 6 - 30) / 2;
+  const marginLR = (cwidth / 2 - (cwidth / 11) * 3) / 4;
 
   world.setSystem(world => {
     const ids = world.getEntities(state1);
@@ -55,18 +60,18 @@ export const createRecipes = world => {
 
         createRecipe(
           world,
-          (cwidth * 3) / 4 - 30 - marginLR,
-          cheight / 6 + marginTB
+          (cwidth * 3) / 4 - cwidth / 11 - marginLR,
+          cheight / 6 + cheight / 18
         );
         createRecipe(
           world,
-          (cwidth * 3) / 4 - 30 - marginLR * 2 - 30,
-          cheight / 6 + marginTB
+          (cwidth * 3) / 4 - cwidth / 11 - marginLR * 2 - cwidth / 11,
+          cheight / 6 + cheight / 18
         );
         createRecipe(
           world,
-          (cwidth * 3) / 4 - 30 - marginLR * 3 - 30 * 2,
-          cheight / 6 + marginTB
+          (cwidth * 3) / 4 - cwidth / 11 - marginLR * 3 - (cwidth / 11) * 2,
+          cheight / 6 + cheight / 18
         );
       }
     }
