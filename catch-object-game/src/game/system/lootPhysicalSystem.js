@@ -1,5 +1,5 @@
 const state = ["loot", "position", "speed"];
-const loopPhysicalSystem = world => {
+const lootPhysicalSystem = world => {
   world.setSystem(world => {
     const ids = world.getEntities(state);
     const delta = world.getDelta();
@@ -11,4 +11,4 @@ const loopPhysicalSystem = world => {
   });
 };
 
-export default loopPhysicalSystem;
+export default lootPhysicalSystem;

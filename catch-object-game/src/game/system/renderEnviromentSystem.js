@@ -3,8 +3,6 @@ const state = ["score", "time", "container"];
 const renderEnviroment = world => {
   const w = world.canvas.width;
   const h = world.canvas.height;
-  console.log(w + "w");
-  console.log(h + "h");
   const context = world.context;
   world.setSystem(world => {
     const ids = world.getEntities(state);
@@ -55,7 +53,7 @@ const renderEnviroment = world => {
 
       // draw desk
       context.fillStyle = "green";
-      context.fillRect(0, (h * 5) / 6 - w / 12, w, h / 6 + h / 18);
+      context.fillRect(0, (h * 5) / 6 - w / 12, w, h / 6 + h / 17);
     }
   });
 };
