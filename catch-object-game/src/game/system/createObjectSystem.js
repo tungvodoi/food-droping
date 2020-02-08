@@ -45,12 +45,15 @@ export const createContainers = world => {
 
 export const createLoots = world => {
   let i = 0;
-  let d = 1;
   // const canvas = world.canvas;
   world.setSystem(world => {
     const delta = world.getDelta();
+    const cooldown = world.getComponent(
+      world.getEntities(["container"]),
+      "cooldown"
+    );
     i += delta;
-    if (i >= d) {
+    if (i >= cooldown) {
       createLoot(world);
       i = 0;
     }

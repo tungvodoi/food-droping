@@ -29,6 +29,10 @@ export const createContainer = world => {
   world.addComponent(id, "gamestate", "gamestart");
   world.addComponent(id, "newgame", false);
   world.addComponent(id, "bonus", 0);
+  world.addComponent(id, "ate", false);
+  world.addComponent(id, "miss", false);
+  world.addComponent(id, "color", ["red"]);
+  world.addComponent(id, "cooldown", 1);
   return id;
 };
 

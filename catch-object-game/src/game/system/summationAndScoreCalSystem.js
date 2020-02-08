@@ -5,7 +5,9 @@ const state = [
   "container",
   "score",
   "phase",
-  "bonus"
+  "bonus",
+  "ate",
+  "color"
 ];
 const state2 = ["position", "radius", "loot", "color"];
 const state3 = ["recipe", "color", "selected"];
@@ -20,7 +22,8 @@ const takeContainerInfor = world => {
     const score = world.getComponent(id, "score");
     const phase = world.getComponent(id, "phase");
     const bonus = world.getComponent(id, "bonus");
-    return [pC, width, height, score, phase, id, bonus];
+    const color = world.getComponent(id, "color");
+    return [pC, width, height, score, phase, id, bonus, color];
   }
 };
 
@@ -40,7 +43,7 @@ const takeRecipeInfo = world => {
 const summationSystem = world => {
   let wrongColor = false;
   let wrongCount = 0;
-  let bonus = true;
+  let bonuss = true;
   world.setSystem(world => {
     const ci = takeContainerInfor(world);
     const infoR = takeRecipeInfo(world);
@@ -70,8 +73,12 @@ const summationSystem = world => {
         //  check if take correct material
         for (let i = infoR.colors.length - 1; i >= 0; i--) {
           if (infoR.colors[i] === color) {
+            bonuss = true;
             ci[3] += 100;
             world.setComponentValue(ci[5], "score", ci[3]);
+            world.setComponentValue(ci[5], "ate", true);
+            ci[7].push(color);
+            world.setComponentValue(ci[5], "color", ci[7]);
             wrongColor = false;
             break;
           } else {
@@ -80,6 +87,7 @@ const summationSystem = world => {
         }
         // if wrong material
         if (wrongColor) {
+          world.setComponentValue(ci[5], "miss", true);
           wrongColor = false;
           wrongCount++;
           ci[3] -= 100;
@@ -88,14 +96,15 @@ const summationSystem = world => {
           }
           world.setComponentValue(ci[5], "score", ci[3]);
           if (wrongCount === 3) {
-            bonus = false;
+            bonuss = false;
             ci[4] = 0;
             // ci[3] -= 200;
+            // world.setComponentValue(ci[5], "score", ci[3]);
           }
         }
 
         if (ci[4] === 0) {
-          if (bonus) {
+          if (bonuss) {
             ci[3] += 200;
             world.setComponentValue(ci[5], "score", ci[3]);
             ci[6] += 1;
