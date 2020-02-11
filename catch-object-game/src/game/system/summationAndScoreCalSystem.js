@@ -45,40 +45,44 @@ const summationSystem = world => {
   let wrongCount = 0;
   let bonuss = true;
   world.setSystem(world => {
-    const ci = takeContainerInfor(world);
-    const infoR = takeRecipeInfo(world);
+    const inforC = takeContainerInfor(world);
+    const inforR = takeRecipeInfo(world);
     const ids = world.getEntities(state2);
     for (let id of ids) {
       const p = world.getComponent(id, "position");
       const radius = world.getComponent(id, "radius");
       const color = world.getComponent(id, "color");
+      const rain = world.getComponent(id, "rain");
       if (
-        p.x + radius / 2 >= ci[0].x - ci[1] / 2 &&
-        p.x - radius / 2 <= ci[0].x + ci[1] / 2 &&
-        p.y + radius / 2 >= ci[0].y - ci[2] / 2 &&
-        p.y - radius / 2 <= ci[0].y
+        p.x + radius / 2 >= inforC[0].x - inforC[1] / 2 &&
+        p.x - radius / 2 <= inforC[0].x + inforC[1] / 2 &&
+        p.y + radius / 2 >= inforC[0].y - inforC[2] / 2 &&
+        p.y - radius / 2 <= inforC[0].y
       ) {
         world.destroyEntity(id);
         // select material on order board
-        for (let i = infoR.colors.length - 1; i >= 0; i--) {
-          if (infoR.colors[i] === color) {
-            if (!infoR.selected[i]) {
-              ci[4] -= 1;
-              world.setComponentValue(ci[5], "phase", ci[4]);
-              world.setComponentValue(infoR.idr[i], "selected", true);
+        for (let i = inforR.colors.length - 1; i >= 0; i--) {
+          if (inforR.colors[i] === color) {
+            if (!inforR.selected[i]) {
+              // console.log(rain);
+              if (!rain) {
+                inforC[4] -= 1;
+              }
+              world.setComponentValue(inforC[5], "phase", inforC[4]);
+              world.setComponentValue(inforR.idr[i], "selected", true);
               break;
             }
           }
         }
         //  check if take correct material
-        for (let i = infoR.colors.length - 1; i >= 0; i--) {
-          if (infoR.colors[i] === color) {
+        for (let i = inforR.colors.length - 1; i >= 0; i--) {
+          if (inforR.colors[i] === color) {
             bonuss = true;
-            ci[3] += 100;
-            world.setComponentValue(ci[5], "score", ci[3]);
-            world.setComponentValue(ci[5], "ate", true);
-            ci[7].push(color);
-            world.setComponentValue(ci[5], "color", ci[7]);
+            inforC[3] += 100;
+            world.setComponentValue(inforC[5], "score", inforC[3]);
+            world.setComponentValue(inforC[5], "ate", true);
+            inforC[7].push(color);
+            world.setComponentValue(inforC[5], "color", inforC[7]);
             wrongColor = false;
             break;
           } else {
@@ -87,33 +91,40 @@ const summationSystem = world => {
         }
         // if wrong material
         if (wrongColor) {
-          world.setComponentValue(ci[5], "miss", true);
+          world.setComponentValue(inforC[5], "miss", true);
           wrongColor = false;
           wrongCount++;
-          ci[3] -= 100;
-          if (ci[3] < 0) {
-            ci[3] = 0;
+          inforC[3] -= 100;
+          if (inforC[3] < 0) {
+            inforC[3] = 0;
           }
-          world.setComponentValue(ci[5], "score", ci[3]);
+          world.setComponentValue(inforC[5], "score", inforC[3]);
           if (wrongCount === 3) {
             bonuss = false;
-            ci[4] = 0;
+            if (!rain) {
+              inforC[4] = 0;
+              world.setComponentValue(inforC[5], "phase", inforC[4]);
+            }
             // ci[3] -= 200;
             // world.setComponentValue(ci[5], "score", ci[3]);
           }
         }
 
-        if (ci[4] === 0) {
+        if (inforC[4] === 0) {
           if (bonuss) {
-            ci[3] += 200;
-            world.setComponentValue(ci[5], "score", ci[3]);
-            ci[6] += 1;
-            world.setComponentValue(ci[5], "bonus", ci[6]);
+            inforC[3] += 200;
+            world.setComponentValue(inforC[5], "score", inforC[3]);
+            inforC[6] += 1;
+            world.setComponentValue(inforC[5], "bonus", inforC[6]);
           }
           wrongCount = 0;
-          world.setComponentValue(ci[5], "phase", 0);
-          for (let i = 0; i < infoR.idr.length; i++) {
-            world.destroyEntity(infoR.idr[i]);
+          world.setComponentValue(inforC[5], "phase", 0);
+          for (let i = inforC[7].length - 1; i > 0; i--) {
+            inforC[7].splice(i, 1);
+          }
+          world.setComponentValue(inforC[5], "color", inforC[7]);
+          for (let i = 0; i < inforR.idr.length; i++) {
+            world.destroyEntity(inforR.idr[i]);
           }
         }
       }

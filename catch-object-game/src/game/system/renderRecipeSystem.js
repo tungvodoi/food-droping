@@ -22,7 +22,7 @@ const renderRecipe = world => {
         context.arc(
           position.x + radius / 2,
           position.y + radius / 2,
-          radius / 2,
+          radius / 3,
           0,
           2 * Math.PI
         );

@@ -10,10 +10,9 @@ const stateContainer = [
 const stateLoot = ["position", "radius", "loot", "color"];
 
 export const renderContainer = world => {
-  let checkRightRotate = false;
-  let checkLeftRotate = false;
+  let checkRotateTwice = false;
   const rotateAngle = Math.PI / 20;
-  const rotatePerDelta = Math.PI / 50;
+  let rotatePerDelta = Math.PI / 50;
   let rotate = 0;
   const context = world.context;
 
@@ -51,23 +50,19 @@ export const renderContainer = world => {
 
       // rotate when miss
       if (miss) {
-        if (0 <= rotate && rotate < rotateAngle && !checkRightRotate) {
+        if (-rotateAngle < rotate && rotate < rotateAngle) {
           rotate += rotatePerDelta;
           if (rotate >= rotateAngle) {
-            checkRightRotate = true;
+            rotatePerDelta *= -1;
+            rotate += rotatePerDelta;
           }
-        }
-        if (checkRightRotate && rotate > -rotateAngle && !checkLeftRotate) {
-          rotate -= rotatePerDelta;
           if (rotate <= -rotateAngle) {
-            checkLeftRotate = true;
+            rotatePerDelta *= -1;
+            rotate += rotatePerDelta;
+            checkRotateTwice = true;
           }
-        }
-        if (checkLeftRotate) {
-          rotate += rotatePerDelta;
-          if (rotate >= 0) {
-            checkLeftRotate = false;
-            checkRightRotate = false;
+          if (rotate >= 0 && checkRotateTwice) {
+            checkRotateTwice = false;
             rotate = 0;
             miss = false;
             world.setComponentValue(id, "miss", miss);
@@ -76,14 +71,13 @@ export const renderContainer = world => {
       }
 
       //draw
-      for (let color of colors) {
-        context.save();
-        context.fillStyle = color;
-        context.translate(position.x, position.y);
-        context.rotate(rotate);
-        context.fillRect(-width / 2, -height / 2, width, height);
-        context.restore();
-      }
+
+      context.save();
+      context.fillStyle = colors[colors.length - 1];
+      context.translate(position.x, position.y);
+      context.rotate(rotate);
+      context.fillRect(-width / 2, -height / 2, width, height);
+      context.restore();
     }
   });
 };
@@ -96,6 +90,7 @@ export const renderLoot = world => {
       const position = world.getComponent(id, "position");
       const radius = world.getComponent(id, "radius");
       let color = world.getComponent(id, "color");
+      // console.log(color);
       context.fillStyle = color;
       context.fillRect(
         position.x - radius / 2,

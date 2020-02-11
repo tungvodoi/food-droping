@@ -25,7 +25,7 @@ export const createContainer = world => {
   world.addComponent(id, "container", true);
   world.addComponent(id, "score", 0);
   world.addComponent(id, "phase", 0);
-  world.addComponent(id, "time", 30);
+  world.addComponent(id, "time", 100);
   world.addComponent(id, "gamestate", "gamestart");
   world.addComponent(id, "newgame", false);
   world.addComponent(id, "bonus", 0);
@@ -51,9 +51,9 @@ export const createLoot = world => {
   world.addComponent(id, "radius", world.canvas.width / 11);
   world.addComponent(id, "loot", true);
   world.addComponent(id, "color", colors[Math.floor(Math.random() * 4) + 0]);
+  world.addComponent(id, "rain", false);
   return id;
 };
-
 export const createRecipe = (world, x, y) => {
   const id = world.createEntity();
   world.addComponent(id, "recipe", true);
@@ -63,5 +63,15 @@ export const createRecipe = (world, x, y) => {
   world.addComponent(id, "radius", world.canvas.width / 11);
   world.addComponent(id, "color", colors[Math.floor(Math.random() * 4) + 0]);
   world.addComponent(id, "selected", false);
+  world.addComponent(id, "cooldown", 1);
+  return id;
+};
+
+export const createRestartButton = world => {
+  const id = world.createEntity();
+  world.addComponent(id, "restart", true);
+  world.addComponent(id, "position", new Vector2(0, 0));
+  world.addComponent(id, "width", world.canvas.width / 2);
+  world.addComponent(id, "height", world.canvas.height / 6);
   return id;
 };

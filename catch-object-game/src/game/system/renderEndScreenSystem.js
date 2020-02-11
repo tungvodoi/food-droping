@@ -1,4 +1,7 @@
+import { createRestartButton } from "../util/entitiesFactory";
+
 const state = ["container", "score", "bonus"];
+// const state2 = ["restart"];
 
 const renderEndScreen = world => {
   const width = world.canvas.width;
@@ -25,6 +28,8 @@ const renderEndScreen = world => {
       width / 10 + (width * 4) / 5 / 2,
       height / 5 + (height * 2) / 3 / 2
     );
+
+    // createRestartButton(world);
   }
 };
 

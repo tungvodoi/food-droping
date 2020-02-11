@@ -72,7 +72,6 @@ allDuplicateRecipe(world);
 
 const update = delta => {
   // var b = screen.availHeight;
-  // console.log(b);
   inputSystem(world);
   gameStates(world);
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -91,11 +90,13 @@ const update = delta => {
   }
 };
 
+let fps = 0;
 let lastUpdate = Date.now();
 (function loop() {
   const delta = Date.now() - lastUpdate;
   lastUpdate = Date.now();
+  fps = 1000 / delta;
   update(delta / 1000);
-
+  // console.log(fps);
   requestAnimationFrame(loop);
 })();

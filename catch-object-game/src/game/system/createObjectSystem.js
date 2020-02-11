@@ -45,6 +45,7 @@ export const createContainers = world => {
 
 export const createLoots = world => {
   let i = 0;
+  let first_Coolown = 0;
   // const canvas = world.canvas;
   world.setSystem(world => {
     const delta = world.getDelta();
@@ -53,10 +54,11 @@ export const createLoots = world => {
       "cooldown"
     );
     i += delta;
-    if (i >= cooldown) {
+    if (i >= first_Coolown) {
       createLoot(world);
       i = 0;
     }
+    first_Coolown = cooldown;
   });
 };
 
@@ -65,31 +67,36 @@ export const createRecipes = world => {
   const cwidth = world.canvas.width;
   const cheight = world.canvas.height;
   const marginLR = (cwidth / 2 - (cwidth / 11) * 3) / 4;
-
+  let cooldown = 0.3;
+  let first_Coolown = 0;
   world.setSystem(world => {
+    const delta = world.getDelta();
     const ids = world.getEntities(state1);
     for (let id of ids) {
       // console.log(id);
       let phase = world.getComponent(id, "phase");
       // console.log(phase);
       if (phase === 0) {
-        world.setComponentValue(world.getEntities(["container"]), "phase", 3);
-
-        createRecipe(
-          world,
-          (cwidth * 3) / 4 - cwidth / 11 - marginLR,
-          cheight / 6 + cheight / 18
-        );
-        createRecipe(
-          world,
-          (cwidth * 3) / 4 - cwidth / 11 - marginLR * 2 - cwidth / 11,
-          cheight / 6 + cheight / 18
-        );
-        createRecipe(
-          world,
-          (cwidth * 3) / 4 - cwidth / 11 - marginLR * 3 - (cwidth / 11) * 2,
-          cheight / 6 + cheight / 18
-        );
+        first_Coolown = Math.max(0, first_Coolown - delta);
+        if (first_Coolown === 0) {
+          first_Coolown = cooldown;
+          world.setComponentValue(world.getEntities(["container"]), "phase", 3);
+          createRecipe(
+            world,
+            (cwidth * 3) / 4 - cwidth / 11 - marginLR,
+            cheight / 6 + cheight / 18
+          );
+          createRecipe(
+            world,
+            (cwidth * 3) / 4 - cwidth / 11 - marginLR * 2 - cwidth / 11,
+            cheight / 6 + cheight / 18
+          );
+          createRecipe(
+            world,
+            (cwidth * 3) / 4 - cwidth / 11 - marginLR * 3 - (cwidth / 11) * 2,
+            cheight / 6 + cheight / 18
+          );
+        }
       }
     }
   });
