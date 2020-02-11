@@ -16,13 +16,15 @@ const allDuplicateRecipe = world => {
       colors.push(color);
     }
     if (colors.length > 0) {
+      let rain = world.getComponent(world.getEntities(["container"]), "rain");
       let check = colors.every((val, i, colors) => val === colors[0]);
       if (check) {
         time += delta;
+        rain = true;
+        world.setComponentValue(world.getEntities(["container"]), "rain", rain);
         //draw countdown
         context.fillStyle = "red";
         context.fillRect(0, (h * 11) / 56, w / 5, h / 12);
-
         context.font = "25px Arial";
         context.fillStyle = "black";
         context.textAlign = "center";
@@ -32,19 +34,22 @@ const allDuplicateRecipe = world => {
           (h * 5) / 21 + h / 90
         );
         //
-        const idc = world.getEntities(["container"]);
-        let cooldown = world.getComponent(idc, "cooldown");
-        cooldown = 0.3;
-        world.setComponentValue(idc, "cooldown", cooldown);
+        let cooldown = world.getComponent(
+          world.getEntities(["container"]),
+          "cooldown"
+        );
+        cooldown = 0.4;
+        world.setComponentValue(
+          world.getEntities(["container"]),
+          "cooldown",
+          cooldown
+        );
 
         const idL = world.getEntities(state2);
         for (let idl of idL) {
           let colorLoot = world.getComponent(idl, "color");
-          let rain = world.getComponent(idl, "rain");
-          rain = true;
           colorLoot = colors[0];
           world.setComponentValue(idl, "color", colorLoot);
-          world.setComponentValue(idl, "rain", rain);
         }
 
         if (time >= timeLimit) {
@@ -55,9 +60,11 @@ const allDuplicateRecipe = world => {
             1
           );
           world.setComponentValue(world.getEntities(["container"]), "phase", 0);
-          for (let idl of idL) {
-            world.setComponentValue(idl, "rain", false);
-          }
+          world.setComponentValue(
+            world.getEntities(["container"]),
+            "rain",
+            false
+          );
           const idr = world.getEntities(state);
           for (let i of idr) {
             world.destroyEntity(i);

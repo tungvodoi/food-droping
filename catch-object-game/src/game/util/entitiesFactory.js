@@ -33,6 +33,7 @@ export const createContainer = world => {
   world.addComponent(id, "miss", []);
   world.addComponent(id, "color", ["red"]);
   world.addComponent(id, "cooldown", 1);
+  // world.addComponent(id, "rain", false);
   return id;
 };
 
@@ -51,7 +52,6 @@ export const createLoot = world => {
   world.addComponent(id, "radius", world.canvas.width / 11);
   world.addComponent(id, "loot", true);
   world.addComponent(id, "color", colors[Math.floor(Math.random() * 4) + 0]);
-  world.addComponent(id, "rain", false);
   return id;
 };
 export const createRecipe = (world, x, y) => {
@@ -61,7 +61,7 @@ export const createRecipe = (world, x, y) => {
   world.addComponent(id, "target", new Vector2(0, 0));
   world.addComponent(id, "speed", 100);
   world.addComponent(id, "radius", world.canvas.width / 11);
-  world.addComponent(id, "color", "black");
+  world.addComponent(id, "color", colors[Math.floor(Math.random() * 4) + 0]);
   world.addComponent(id, "selected", false);
   world.addComponent(id, "cooldown", 1);
   return id;

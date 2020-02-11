@@ -50,35 +50,30 @@ const summationSystem = world => {
     const inforC = takeContainerInfor(world);
     const inforR = takeRecipeInfo(world);
     const ids = world.getEntities(state2);
-    console.log(inforC[0]);
     for (let id of ids) {
       const p = world.getComponent(id, "position");
       const radius = world.getComponent(id, "radius");
       const color = world.getComponent(id, "color");
-      const rain = world.getComponent(id, "rain");
+      // const rain = world.getComponent(world.getEntities(["container"]), "rain");
       let ate = world.getComponent(world.getEntities(["container"]), "ate");
       let miss = world.getComponent(world.getEntities(["container"]), "miss");
-      // console.log(inforC[0]);
       if (
         p.x + radius / 2 >= inforC[0].x - inforC[1] / 2 &&
         p.x - radius / 2 <= inforC[0].x + inforC[1] / 2 &&
         p.y + radius / 2 >= inforC[0].y - inforC[2] / 2 &&
         p.y - radius / 2 <= inforC[0].y
       ) {
-        console.log(1);
         world.destroyEntity(id);
         // select material on order board
         for (let i = inforR.colors.length - 1; i >= 0; i--) {
           if (inforR.colors[i] === color) {
             if (!inforR.selected[i]) {
               // console.log(rain);
-              if (!rain) {
-                inforC[4] -= 1;
-              }
+              // if (!rain) {
+              inforC[4] -= 1;
+              // }
               world.setComponentValue(inforC[5], "phase", inforC[4]);
               world.setComponentValue(inforR.idr[i], "selected", true);
-              // console.log(ate.length);
-              // console.log(1);
               break;
             }
           }
@@ -109,8 +104,6 @@ const summationSystem = world => {
             check: true,
             position: new Vector2(inforC[0].x, inforC[0].y)
           });
-          // console.log(miss);
-          // console.log(1);
           world.setComponentValue(inforC[5], "miss", miss);
           wrongColor = false;
           wrongCount++;
@@ -121,10 +114,10 @@ const summationSystem = world => {
           world.setComponentValue(inforC[5], "score", inforC[3]);
           if (wrongCount === 3) {
             bonuss = false;
-            if (!rain) {
-              inforC[4] = 0;
-              world.setComponentValue(inforC[5], "phase", inforC[4]);
-            }
+            // if (!rain) {
+            inforC[4] = 0;
+            world.setComponentValue(inforC[5], "phase", inforC[4]);
+            // }
             // ci[3] -= 200;
             // world.setComponentValue(ci[5], "score", ci[3]);
           }
@@ -147,9 +140,6 @@ const summationSystem = world => {
             world.destroyEntity(inforR.idr[i]);
           }
         }
-      }
-      if (p.y >= world.canvas.height) {
-        world.destroyEntity(id);
       }
     }
   });

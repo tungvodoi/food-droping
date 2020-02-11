@@ -19,7 +19,7 @@ import setTimer from "./game/system/timerSystem";
 import gameStates from "./game/system/gameStateSystem";
 import inputSystem from "./game/system/inputSystem";
 import renderEndScreen from "./game/system/renderEndScreenSystem";
-import allDuplicateRecipe from "./game/system/allDuplicateRecipeSystem";
+// import allDuplicateRecipe from "./game/system/allDuplicateRecipeSystem";
 const canvas = document.getElementById("main");
 const context = canvas.getContext("2d");
 
@@ -68,7 +68,7 @@ containerPhysicalSystem(world);
 lootPhysicalSystem(world);
 deleteLoot(world);
 setTimer(world);
-allDuplicateRecipe(world);
+// allDuplicateRecipe(world);
 
 const update = delta => {
   // var b = screen.availHeight;
@@ -90,12 +90,12 @@ const update = delta => {
   }
 };
 
-let fps = 0;
+// let fps = 0;
 let lastUpdate = Date.now();
 (function loop() {
   const delta = Date.now() - lastUpdate;
   lastUpdate = Date.now();
-  fps = 1000 / delta;
+  // fps = 1000 / delta;
   update(delta / 1000);
   // console.log(fps);
   requestAnimationFrame(loop);

@@ -15,20 +15,19 @@ export const renderContainer = world => {
   let rotatePerDelta = Math.PI / 50;
   let rotate = 0;
   const context = world.context;
-  let checkMaxSize = false;
   let plusPerDelta = 2;
-  let scorePlusY =
-    (world.canvas.height * 5) / 6 +
-    world.canvas.height / 50 -
-    world.canvas.width / 6;
-  let speed = 100;
+  // let scorePlusY =
+  //   (world.canvas.height * 5) / 6 +
+  //   world.canvas.height / 50 -
+  //   world.canvas.width / 6;
+  // let speed = 100;
   // let scoreY = 0;
   // let scoreX = 0;
 
   world.setSystem(world => {
     const ids = world.getEntities(stateContainer);
     for (let id of ids) {
-      const delta = world.getDelta();
+      // const delta = world.getDelta();
       const position = world.getComponent(id, "position");
       let width = world.getComponent(id, "width");
       let height = world.getComponent(id, "height");
@@ -51,7 +50,6 @@ export const renderContainer = world => {
             ate[i].position.y - height / 2 - world.canvas.height / 12
           );
           // zoom
-          // console.log(1);
           if (
             width <= world.canvas.width / 3 + world.canvas.width / 30 &&
             width >= world.canvas.width / 3
