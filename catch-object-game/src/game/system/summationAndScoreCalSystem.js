@@ -1,3 +1,5 @@
+import Vector2 from "gdxjs/lib/vector2";
+
 const state = [
   "position",
   "height",
@@ -53,6 +55,9 @@ const summationSystem = world => {
       const radius = world.getComponent(id, "radius");
       const color = world.getComponent(id, "color");
       const rain = world.getComponent(id, "rain");
+      let ate = world.getComponent(world.getEntities(["container"]), "ate");
+      let miss = world.getComponent(world.getEntities(["container"]), "miss");
+      // console.log(inforC[0]);
       if (
         p.x + radius / 2 >= inforC[0].x - inforC[1] / 2 &&
         p.x - radius / 2 <= inforC[0].x + inforC[1] / 2 &&
@@ -70,6 +75,12 @@ const summationSystem = world => {
               }
               world.setComponentValue(inforC[5], "phase", inforC[4]);
               world.setComponentValue(inforR.idr[i], "selected", true);
+              ate.push({
+                check: true,
+                position: new Vector2(inforC[0].x, inforC[0].y)
+              });
+              console.log(ate.length);
+              console.log(1);
               break;
             }
           }
@@ -80,7 +91,7 @@ const summationSystem = world => {
             bonuss = true;
             inforC[3] += 100;
             world.setComponentValue(inforC[5], "score", inforC[3]);
-            world.setComponentValue(inforC[5], "ate", true);
+            world.setComponentValue(inforC[5], "ate", ate);
             inforC[7].push(color);
             world.setComponentValue(inforC[5], "color", inforC[7]);
             wrongColor = false;
@@ -89,9 +100,16 @@ const summationSystem = world => {
             wrongColor = true;
           }
         }
+
         // if wrong material
         if (wrongColor) {
-          world.setComponentValue(inforC[5], "miss", true);
+          miss.push({
+            check: true,
+            position: new Vector2(inforC[0].x, inforC[0].y)
+          });
+          // console.log(miss);
+          // console.log(1);
+          world.setComponentValue(inforC[5], "miss", miss);
           wrongColor = false;
           wrongCount++;
           inforC[3] -= 100;

@@ -6,7 +6,7 @@ const allDuplicateRecipe = world => {
   const w = world.canvas.width;
   const h = world.canvas.height;
   let colors = [];
-  const timeLimit = 3;
+  const timeLimit = 5;
   let time = 0;
   world.setSystem(world => {
     const ids = world.getEntities(state);
