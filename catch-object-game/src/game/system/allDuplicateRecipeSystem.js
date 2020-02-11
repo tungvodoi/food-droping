@@ -34,7 +34,7 @@ const allDuplicateRecipe = world => {
         //
         const idc = world.getEntities(["container"]);
         let cooldown = world.getComponent(idc, "cooldown");
-        cooldown = 0.1;
+        cooldown = 0.3;
         world.setComponentValue(idc, "cooldown", cooldown);
 
         const idL = world.getEntities(state2);

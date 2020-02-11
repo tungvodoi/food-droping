@@ -50,6 +50,7 @@ const summationSystem = world => {
     const inforC = takeContainerInfor(world);
     const inforR = takeRecipeInfo(world);
     const ids = world.getEntities(state2);
+    console.log(inforC[0]);
     for (let id of ids) {
       const p = world.getComponent(id, "position");
       const radius = world.getComponent(id, "radius");
@@ -64,6 +65,7 @@ const summationSystem = world => {
         p.y + radius / 2 >= inforC[0].y - inforC[2] / 2 &&
         p.y - radius / 2 <= inforC[0].y
       ) {
+        console.log(1);
         world.destroyEntity(id);
         // select material on order board
         for (let i = inforR.colors.length - 1; i >= 0; i--) {
@@ -75,12 +77,8 @@ const summationSystem = world => {
               }
               world.setComponentValue(inforC[5], "phase", inforC[4]);
               world.setComponentValue(inforR.idr[i], "selected", true);
-              ate.push({
-                check: true,
-                position: new Vector2(inforC[0].x, inforC[0].y)
-              });
-              console.log(ate.length);
-              console.log(1);
+              // console.log(ate.length);
+              // console.log(1);
               break;
             }
           }
@@ -88,6 +86,10 @@ const summationSystem = world => {
         //  check if take correct material
         for (let i = inforR.colors.length - 1; i >= 0; i--) {
           if (inforR.colors[i] === color) {
+            ate.push({
+              check: true,
+              position: new Vector2(inforC[0].x, inforC[0].y)
+            });
             bonuss = true;
             inforC[3] += 100;
             world.setComponentValue(inforC[5], "score", inforC[3]);
