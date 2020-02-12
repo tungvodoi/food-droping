@@ -48,20 +48,20 @@ export const createLoot = world => {
       (world.canvas.height * 1) / 3
     )
   );
-  world.addComponent(id, "speed", 200);
+  world.addComponent(id, "speed", 400);
   world.addComponent(id, "radius", world.canvas.width / 11);
   world.addComponent(id, "loot", true);
-  world.addComponent(id, "color", colors[Math.floor(Math.random() * 4) + 0]);
+  world.addComponent(id, "color", colors[Math.floor(Math.random() * 5) + 0]);
   return id;
 };
-export const createRecipe = (world, x, y) => {
+export const createRecipe = (world, x, y, cl) => {
   const id = world.createEntity();
   world.addComponent(id, "recipe", true);
   world.addComponent(id, "position", new Vector2(x, y));
   world.addComponent(id, "target", new Vector2(0, 0));
   world.addComponent(id, "speed", 100);
   world.addComponent(id, "radius", world.canvas.width / 11);
-  world.addComponent(id, "color", colors[Math.floor(Math.random() * 4) + 0]);
+  world.addComponent(id, "color", cl);
   world.addComponent(id, "selected", false);
   world.addComponent(id, "cooldown", 1);
   return id;

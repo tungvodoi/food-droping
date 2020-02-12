@@ -62,6 +62,11 @@ export const createLoots = world => {
   });
 };
 
+const shuffle = array => {
+  array.sort(() => Math.random() - 0.5);
+  return array;
+};
+
 export const createRecipes = world => {
   // let count = 0;
   const cwidth = world.canvas.width;
@@ -69,6 +74,7 @@ export const createRecipes = world => {
   const marginLR = (cwidth / 2 - (cwidth / 11) * 3) / 4;
   let cooldown = 0.3;
   let first_Coolown = 0;
+  const colors = ["#ffb69f", "#00848e", "#ebebed", "#800000", "#544d68"];
   world.setSystem(world => {
     const delta = world.getDelta();
     const ids = world.getEntities(state1);
@@ -81,20 +87,26 @@ export const createRecipes = world => {
         if (first_Coolown === 0) {
           first_Coolown = cooldown;
           world.setComponentValue(world.getEntities(["container"]), "phase", 3);
+
+          const array = shuffle(colors);
+
           createRecipe(
             world,
             (cwidth * 3) / 4 - cwidth / 11 - marginLR,
-            cheight / 6 + cheight / 18
+            cheight / 6 + cheight / 18,
+            array[0]
           );
           createRecipe(
             world,
             (cwidth * 3) / 4 - cwidth / 11 - marginLR * 2 - cwidth / 11,
-            cheight / 6 + cheight / 18
+            cheight / 6 + cheight / 18,
+            array[1]
           );
           createRecipe(
             world,
             (cwidth * 3) / 4 - cwidth / 11 - marginLR * 3 - (cwidth / 11) * 2,
-            cheight / 6 + cheight / 18
+            cheight / 6 + cheight / 18,
+            array[2]
           );
         }
       }
